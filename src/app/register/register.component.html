@@ -1,0 +1,31 @@
+<div class="header">
+  <div class="row">
+      <div class="col-12 col-sm-6 title">
+          <h1>Lenovo Channel<br> Drive</h1>
+      </div>
+      <div class="col-12 col-sm-6 text-right right-img">
+          <h3 class="d-inline-block">
+              Smarter<br>
+               technology<br>
+               for all
+          </h3>
+          <img src="../assets/lenovo.png" class="d-inline-block"/>
+      </div>
+      <form (ngSubmit)="onSubmit()" method="post" action="https://think-smarter.lenovomeaevents.com/auth/register">
+          <h2 class="text-center">Registration</h2>
+          <input type="text" name="fullname" ng-model="fullname" placeholder="Full Name"  />
+          <input type="text" name="company" ng-model="company" placeholder="Company" />
+          <input type="text" name="title" ng-model="title" placeholder="Title" />
+          <input type="number" name="mobile" ng-model="mobile" placeholder="Mobile Number" />
+          <input type="email" name="email" ng-model="email" placeholder="Corporate Email" />
+          <input type="password" name="password" ng-model="password" placeholder="Password" />
+          <input type="text" name="city" ng-model="city" placeholder="City" />
+          <div class="text-center">
+              <button type="submit" class="btn btn-danger w-50">Register</button>
+          </div>
+      </form>
+      <div class="col-12">
+          <img src="../assets/windowslogo.png" />
+      </div>
+  </div>
+</div>

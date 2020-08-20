@@ -1,0 +1,31 @@
+form {
+  width: 330px !important;
+  padding: 30px 50px;
+  background-color: #393a3a;
+  margin: auto;
+}
+
+form h2 {
+  margin: 20px 0 40px;
+  color: #fff;
+}
+
+input {
+  width: 100%;
+  display: block;
+  margin: 10px auto 30px;
+  padding: 5px;
+  border: unset;
+  border-radius: 4px;
+}
+
+.btn-danger {
+  background-color: #fb5f00;
+  border-color: #fb5f00;
+}
+
+a {
+  display: block;
+  margin-top: 35px;
+  color: #fff;
+}

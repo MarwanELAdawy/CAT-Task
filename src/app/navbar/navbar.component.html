@@ -1,0 +1,30 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+      <li ng-if='auth' class="nav-item">
+          <router-link to="/" class="nav-link">Home</router-link>
+      </li>
+      <li v-if='!auth' class="nav-item">
+          <router-link to="/sign-in" class="nav-link">Sign In</router-link>
+      </li>
+      <li ng-if='auth' class="nav-item">
+          <a (click)="onLogout()" class="nav-link"> Log out</a>
+      </li>
+      <li class="nav-item">
+          <router-link to="" class="nav-link">Product Training</router-link>
+      </li>
+      <li class="nav-item">
+          <router-link to="" class="nav-link"> How to participate</router-link>
+      </li>
+      <li class="nav-item">
+          <router-link to="" class="nav-link"> Upcoming Events</router-link>
+      </li>
+      <li class="nav-item">
+          <router-link to="" class="nav-link"> Contact Us</router-link>
+      </li>
+      </ul>
+  </div>
+</nav>
