@@ -13,18 +13,25 @@
       </div>
       <div class="col-sm-8 col-12">
           <p class="lead header-p">
-              The #smarter you are by choosing &amp; recommending the world’s
-              #1 PC Brand, the more there is in it for you!
-              Join our new Lenovo THINK SMARTER loyalty program to enjoy
-              incentives and benefits as Lenovo Channel Partners
+            The new, enhanced membership program
+            that gives you more opportunitesto enjoy
+            valuable incentives and benefites as Lenovo
+            channel partners
           </p>
       </div>
-      <form ng-if='!auth' (ngSubmit)="onSubmit()" method="post" action="https://think-smarter.lenovomeaevents.com/auth/login" class="col-sm-3 col-12 text-center">
-          <h2>Login Account</h2>
-          <input type="email" name="email" v-model="email" placeholder="Email Address" />
-          <input type="password" name="password" v-model="password" placeholder="Password" />
-          <button type="submit" class="btn btn-danger">Login Account</button>
-          <router-link to="/register-form">Create new account</router-link>
+      <form ng-if='!auth' method="post" (ngSubmit)="onSubmit()" class="col-sm-3 col-12 text-center">
+          <h2>Registration</h2>
+          <input type="text" name="fullname" ng-model="fullname" placeholder="Full Name"  />
+          <input type="text" name="company" ng-model="company" placeholder="Company" />
+          <input type="text" name="title" ng-model="title" placeholder="Title" />
+          <input type="number" name="mobile" ng-model="mobile" placeholder="Mobile Number" />
+          <input type="email" name="email" ng-model="email" placeholder="Corporate Email" />
+          <input type="password" name="password" ng-model="password" placeholder="Password" />
+          <input type="text" name="city" ng-model="city" placeholder="City" />
+          <button [disabled]="loading" class="btn btn-danger w-50" type="submit">
+              <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+              Register
+          </button>
       </form>
       <div ng-if="auth" class="col-sm-3 col-12 text-center justify-content-end welcome-user">
           <h3>Welcome {{user}} </h3>

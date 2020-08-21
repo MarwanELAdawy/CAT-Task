@@ -6,11 +6,14 @@ import { first } from 'rxjs/operators';
 import { AccountService } from '../_services/account.service';
 import { AlertService } from '../_services/alert.service';
 
-@Component({ templateUrl: 'register.component.html' })
+@Component({ templateUrl: 'register.component.html', providers: [AccountService, FormBuilder] })
 export class RegisterComponent implements OnInit {
     form: FormGroup;
     loading = false;
     submitted = false;
+    isSuccessful = false;
+    isSignUpFailed = false;
+    errorMessage = '';
 
     constructor(
         private formBuilder: FormBuilder,
@@ -37,7 +40,7 @@ export class RegisterComponent implements OnInit {
     // convenience getter for easy access to form fields
     get f() { return this.form.controls; }
 
-    onSubmit() {
+    onSubmit(): void {
         this.submitted = true;
 
         // reset alerts on submit
@@ -50,14 +53,19 @@ export class RegisterComponent implements OnInit {
 
         this.loading = true;
         this.accountService.register(this.form.value)
-          .pipe(first()).subscribe(
+          .subscribe(
             data => {
+                console.log(data);
                 this.alertService.success('Registration successful', { keepAfterRouteChange: true });
                 this.router.navigate(['../home'], { relativeTo: this.route });
+                this.isSuccessful = true;
+                this.isSignUpFailed = false;
             },
             error => {
                 this.alertService.error(error);
                 this.loading = false;
+                this.errorMessage = error.error.message;
+                this.isSignUpFailed = true;
             });
     }
 }

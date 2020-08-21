@@ -6,20 +6,18 @@
       <div class="col-12 col-sm-6 text-right right-img">
           <h3 class="d-inline-block">
               Smarter<br>
-               technology<br>
-               for all
+              technology<br>
+              for all
           </h3>
           <img src="../assets/lenovo.png" class="d-inline-block"/>
       </div>
-      <form (ngSubmit)="onSubmit()" method="post" action="https://think-smarter.lenovomeaevents.com/auth/login" class="text-center" id="ngform">
+      <img src="../../assets/windowslogo.png" class="d-inline-block ii"/>
+      <form (ngSubmit)="onSubmit()" method="post" class="text-center" id="ngform">
           <h2>Login Account</h2>
           <input type="email" name="email" placeholder="Email Address" />
           <input type="password" name="password" placeholder="Password" />
           <button type="submit" class="btn btn-danger w-100">Login Account</button>
-          <router-link to="/register-form">Create new account</router-link>
       </form>
-      <div class="col-12">
-          <img src="../assets/windowslogo.png" />
-      </div>
   </div>
 </div>
+<app-footer></app-footer>

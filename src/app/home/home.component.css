@@ -10,7 +10,18 @@ h2 {
   font-size: 21px;
   font-weight: 600;
 }
+#reg{
+  background-color: #fb5f00;
+  margin: 10px;
+  border-radius: 70px;
+  text-align: center;
 
+}
+.down{
+  background-color: #353232;
+  color: white;
+  padding: 40px;
+}
 
 .imgs-section, .contact {
   padding: 80px 0 60px;

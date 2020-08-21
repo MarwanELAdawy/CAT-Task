@@ -5,26 +5,26 @@
   <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
       <li ng-if='auth' class="nav-item">
-          <router-link to="/" class="nav-link">Home</router-link>
+          <!-- <router-link to="/" class="nav-link">Home</router-link> -->
+          <a href="/home" class="nav-link" routerLink="home">Home</a>
       </li>
-      <li v-if='!auth' class="nav-item">
-          <router-link to="/sign-in" class="nav-link">Sign In</router-link>
+      <li ng-if='!auth' class="nav-item">
+          <!-- <router-link to="sign-in" class="nav-link">Sign up</router-link> -->
+          <a href="/register" class="nav-link" routerLink="register">Sign up</a>
       </li>
       <li ng-if='auth' class="nav-item">
-          <a (click)="onLogout()" class="nav-link"> Log out</a>
+          <!-- <a (click)="onLogout()" class="nav-link"> Login</a> -->
+          <a href="/login" class="nav-link" routerLink="sign">Login</a>
       </li>
       <li class="nav-item">
-          <router-link to="" class="nav-link">Product Training</router-link>
+          <router-link to="" class="nav-link">Elearning</router-link>
       </li>
       <li class="nav-item">
-          <router-link to="" class="nav-link"> How to participate</router-link>
+          <router-link to="" class="nav-link"> Videos</router-link>
       </li>
       <li class="nav-item">
-          <router-link to="" class="nav-link"> Upcoming Events</router-link>
+          <router-link to="" class="nav-link">How to Participate</router-link>
       </li>
-      <li class="nav-item">
-          <router-link to="" class="nav-link"> Contact Us</router-link>
-      </li>
-      </ul>
+    </ul>
   </div>
 </nav>

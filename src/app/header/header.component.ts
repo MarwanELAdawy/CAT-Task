@@ -1,5 +1,5 @@
+import { RegisterComponent } from './../register/register.component';
 import { FormBuilder } from '@angular/forms';
-import { AuthGuard } from './../_helpers/index';
 import { LoginComponent } from './../login/login.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
@@ -12,16 +12,18 @@ import { User } from '../_models/user';
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
-  providers: [LoginComponent, AccountService, FormBuilder]
+  providers: [RegisterComponent, AccountService, FormBuilder]
 })
 export class HeaderComponent implements OnInit {
 
   public user: Observable<User>;
+  loading = false;
 
-  constructor(public _AccountService: AccountService, public _LoginComponent: LoginComponent, http: HttpClient) { }
+  constructor(public _AccountService: AccountService, public _RegisterComponent: RegisterComponent, http: HttpClient) { }
 
   ngOnInit(): void {
   }
+
   auth () {
     return this._AccountService.ifAuthenticated;
   }
@@ -32,6 +34,6 @@ export class HeaderComponent implements OnInit {
     };
   }
   onSubmit(){
-    return this._LoginComponent.onSubmit();
+    return this._RegisterComponent.onSubmit();
   }
 }

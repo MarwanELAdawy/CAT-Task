@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://think-smarter.lenovomeaevents.com/'
+  apiUrl: 'https://think-smarter.lenovomeaevents.com/api'
 };
 
 /*
