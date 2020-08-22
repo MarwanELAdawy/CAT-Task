@@ -10,6 +10,7 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { ParticipateComponent } from './participate/participate.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontaweso
     RegisterComponent,
     LoginComponent,
     HomeComponent,
+    ParticipateComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,12 +1,12 @@
+import { User } from './../_models/user';
 import { AlertService } from '../_services/alert.service';
 import { Component, OnInit } from '@angular/core';
 import { AccountService } from '../_services/account.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, EmailValidator } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { first } from 'rxjs/operators';
 import { TokenStorageService } from '../_services/token-storage.service';
-
-
+import { ApiClient } from '../axioshttp.service';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -23,6 +23,7 @@ export class LoginComponent implements OnInit {
   isLoginFailed = false;
   errorMessage = '';
   roles: string[] = [];
+  public users: User[];
 
   constructor(public _AccountService: AccountService,
     private formBuilder: FormBuilder,
@@ -30,7 +31,12 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private accountService: AccountService,
     private tokenStorage: TokenStorageService,
-    private alertService: AlertService) { }
+    private apiClient: ApiClient,
+    private alertService: AlertService) {
+      this.apiClient = apiClient;
+      this.users = [];
+      document.cookie = 'XSRF-TOKEN=server-generated-token';
+    }
 
   ngOnInit(): void {
     if (this.tokenStorage.getToken()) {
@@ -51,7 +57,7 @@ export class LoginComponent implements OnInit {
   // convenience getter for easy access to form fields
   get f() { return this.form.controls; }
 
-  onSubmit() {
+  onSubmit(){
     this.submitted = true;
     // reset alerts on submit
     this.alertService.clear();
@@ -60,24 +66,31 @@ export class LoginComponent implements OnInit {
         return;
     }
     this.loading = true;
-    this.accountService.login(this.f.username.value, this.f.password.value).subscribe(
-          data => {
-              this.tokenStorage.saveToken(data.accessToken);
-              this.tokenStorage.saveUser(data);
-              this.isLoginFailed = false;
-              this.isLoggedIn = true;
-              this.roles = this.tokenStorage.getUser().roles;
-              this.reloadPage();
-              //this.router.navigate([this.returnUrl]);
-          },
-          error => {
-              this.alertService.error(error);
-              this.loading = false;
-              this.errorMessage = error.error.message;
-              this.isLoginFailed = true;
-          });
+    this.apiClient.get<User[]>({
+      url: `${environment.apiUrl}/auth/login`,
+      params: {
+        limit: 10,
+        email: this.f.email.value,
+        password: this.f.password.value
+      }
+    }).then(
+      data => {
+        // this.tokenStorage.saveToken(data.accessToken);
+        this.tokenStorage.saveUser(data);
+        this.isLoginFailed = false;
+        this.isLoggedIn = true;
+        this.roles = this.tokenStorage.getUser().roles;
+        this.reloadPage();
+      }
+    ).catch(
+      error => {
+          this.alertService.error(error);
+          this.loading = false;
+          this.errorMessage = error.error.message;
+          this.isLoginFailed = true;
+      });
   }
   reloadPage(): void {
-    window.location.reload();
+      window.location.reload();
   }
 }

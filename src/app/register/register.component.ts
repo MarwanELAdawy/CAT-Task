@@ -5,8 +5,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { AccountService } from '../_services/account.service';
 import { AlertService } from '../_services/alert.service';
-
-@Component({ templateUrl: 'register.component.html', providers: [AccountService, FormBuilder] })
+import { ApiClient } from '../axioshttp.service';
+@Component({ templateUrl: 'register.component.html', styleUrls: ['register.component.css'] , providers: [AccountService, FormBuilder] })
 export class RegisterComponent implements OnInit {
     form: FormGroup;
     loading = false;
@@ -21,8 +21,11 @@ export class RegisterComponent implements OnInit {
         private router: Router,
         private accountService: AccountService,
         private alertService: AlertService,
+        private apiClient: ApiClient,
         public _HttpClientModule: HttpClientModule
-    ) { }
+    ) {
+      this.apiClient = apiClient;
+     }
 
     ngOnInit() {
         this.form = this.formBuilder.group({
@@ -52,20 +55,20 @@ export class RegisterComponent implements OnInit {
         }
 
         this.loading = true;
-        this.accountService.register(this.form.value)
-          .subscribe(
-            data => {
-                console.log(data);
-                this.alertService.success('Registration successful', { keepAfterRouteChange: true });
-                this.router.navigate(['../home'], { relativeTo: this.route });
-                this.isSuccessful = true;
-                this.isSignUpFailed = false;
-            },
-            error => {
-                this.alertService.error(error);
-                this.loading = false;
-                this.errorMessage = error.error.message;
-                this.isSignUpFailed = true;
-            });
+        this.apiClient.post(this.form.value).then(
+          data => {
+            console.log(data);
+            this.alertService.success('Registration successful', { keepAfterRouteChange: true });
+            this.router.navigate(['../home'], { relativeTo: this.route });
+            this.isSuccessful = true;
+            this.isSignUpFailed = false;
+          }
+        ).catch(
+          error => {
+            this.alertService.error(error);
+            this.loading = false;
+            this.errorMessage = error.error.message;
+            this.isSignUpFailed = true;
+        });
     }
 }

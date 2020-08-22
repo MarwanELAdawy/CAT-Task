@@ -3,7 +3,8 @@ import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-
+import axios from 'axios';
+import { AxiosInstance } from 'axios';
 import { environment } from '../../environments/environment';
 import { User } from '../_models/user';
 
@@ -36,12 +37,43 @@ export class AccountService {
     }
 
     login(email, password): Observable<any> {
-        return this.http.post<User>(`${environment.apiUrl}/auth/login`,{
+        return this.http.post<User>(`${environment.apiUrl}/auth/login`, {
               email,
               password
           }, httpOptions);
-    }
-
+      }
+    // loginn(email, password){
+    //   let observable$ = Observable.create((observer)=>
+    //   axios.get(`${environment.apiUrl}/auth/login`, {
+    //     params: {
+    //       email,
+    //       password
+    //     }
+    //   })
+    //   .then(function (response) {
+    //     console.log(response);
+    //   })
+    //   .catch(function (error) {
+    //       console.error(error);
+    //   })
+    // }
+    logiin({commit}, authData) {
+      axios.post(`${environment.apiUrl}/auth/login`, {
+        email: authData.email,
+        password: authData.password,
+        returnSecureToken: true
+      })
+      .then(res => {
+        console.log(res);
+        commit('authUser', {
+          token: res.data.idToken,
+          userId: res.data.localId
+        })
+          localStorage.setItem('token', res.data.idToken);
+          localStorage.setItem('userId', res.data.localId);
+      })
+      .catch(error => console.log(error));
+      }
     logout() {
         // remove user from local storage and set current user to null
         localStorage.removeItem('user');

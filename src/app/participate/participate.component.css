@@ -10,9 +10,17 @@
   height: 3px;
   background-color: #fb5f00;
 }
-
-.header h1 {
+.header h1{
+  color: white;
+}
+.header .mid {
   color: #fff;
+  margin: auto;
+}
+.header li{
+  color: white;
+  margin: auto;
+  padding: 5px;
 }
 
 .header .right-img h3 {
@@ -30,32 +38,4 @@
   font-size: 24px !important;
   font-weight: 500 !important;
   width: 491px;
-}
-
-form {
-  width: 530px !important;
-  padding: 30px 50px 60px;
-  margin: auto;
-  background-color: #393a3a;
-  border-bottom: 7px solid #fb5f00;
-}
-
-form h2 {
-  margin: 20px 0 40px;
-  color: #fff;
-}
-
-input {
-  width: 45%;
-  display: inline-block;
-  margin: 10px 10px 30px !important;
-  padding: 5px;
-  border: unset;
-  border-radius: 4px;
-}
-
-.btn-danger {
-  background-color: #fb5f00;
-  border-color: #fb5f00;
-  margin: auto;
 }

@@ -1,3 +1,4 @@
+import { ParticipateComponent } from './participate/participate.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { RegisterComponent } from './register/register.component';
@@ -21,6 +22,10 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
+  },
+  {
+    path: 'participate',
+    component: ParticipateComponent
   },
   // otherwise redirect to home
   { path: '**', redirectTo: '' }
