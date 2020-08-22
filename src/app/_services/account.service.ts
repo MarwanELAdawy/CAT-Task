@@ -1,16 +1,11 @@
+import { User } from './../_models/user';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import axios from 'axios';
-import { AxiosInstance } from 'axios';
 import { environment } from '../../environments/environment';
-import { User } from '../_models/user';
 
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-};
 @Injectable({ providedIn: 'root' })
 export class AccountService {
     private userSubject: BehaviorSubject<User>;
@@ -36,46 +31,17 @@ export class AccountService {
         return this.userSubject.value;
     }
 
-    login(email, password): Observable<any> {
-        return this.http.post<User>(`${environment.apiUrl}/auth/login`, {
-              email,
-              password
-          }, httpOptions);
-      }
-    // loginn(email, password){
-    //   let observable$ = Observable.create((observer)=>
-    //   axios.get(`${environment.apiUrl}/auth/login`, {
-    //     params: {
-    //       email,
-    //       password
-    //     }
-    //   })
-    //   .then(function (response) {
-    //     console.log(response);
-    //   })
-    //   .catch(function (error) {
-    //       console.error(error);
-    //   })
-    // }
-    logiin({commit}, authData) {
-      axios.post(`${environment.apiUrl}/auth/login`, {
-        email: authData.email,
-        password: authData.password,
-        returnSecureToken: true
-      })
-      .then(res => {
-        console.log(res);
-        commit('authUser', {
-          token: res.data.idToken,
-          userId: res.data.localId
-        })
-          localStorage.setItem('token', res.data.idToken);
-          localStorage.setItem('userId', res.data.localId);
-      })
-      .catch(error => console.log(error));
-      }
+    login(email, password){
+      return this.http.post<User>(`${environment.apiUrl}/auth/login`, {email, password} ).pipe(map(user => {
+        console.log(user);
+        localStorage.setItem('user', JSON.stringify(user));
+        this.userSubject.next(user);
+        console.log(environment.apiUrl);
+        return user;
+      }));
+    }
+
     logout() {
-        // remove user from local storage and set current user to null
         localStorage.removeItem('user');
         localStorage.clear();
         this.userSubject.next(null);
@@ -92,10 +58,10 @@ export class AccountService {
           phone: user.phone,
           keep_updated: user.keep_updated,
           password: user.password
-        }, httpOptions);
+        });
     }
 
-    ifAuthenticated (state) {
+    ifAuthenticated(state) {
       return state.idToken !== null;
     }
 }
